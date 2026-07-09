@@ -2,7 +2,7 @@
 
 Living network map. Update when ports or services change.
 
-**Last updated:** 2026-07-09 (Stage 2)
+**Last updated:** 2026-07-09 (Stage 3.5)
 
 ## Current (Stage 1)
 
@@ -74,3 +74,8 @@ flowchart TB
 
 - IPv6 is enabled end-to-end on the host; leak policy will be defined with VPN + Core DNS.
 - ip_forward remains 0 until VPN NAT requires it (Stage 6, with confirm).
+
+
+## Reputation
+
+See `docs/REPUTATION.md` and ADR-0009 (domain/TLS deferred).

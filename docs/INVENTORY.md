@@ -2,7 +2,7 @@
 
 Living inventory of the node. Update on every stage.
 
-**Last updated:** 2026-07-09 (Stage 3)
+**Last updated:** 2026-07-09 (Stage 3.5)
 
 ## Host
 
@@ -28,8 +28,10 @@ Living inventory of the node. Update on every stage.
 | IPv4 GW | 173.249.39.1 | |
 | IPv6 | 2a02:c207:2341:3547::1/64 | Public |
 | IPv6 GW | fe80::1 | onlink |
-| PTR IPv4 | TBD (Stage 3.5) | |
-| Domain | none yet | Stage 3.5 decision |
+| PTR IPv4 | vmi3413547.contaboserver.net | Stage 3.5 verified |
+| PTR IPv6 | vmi3413547.contaboserver.net | Stage 3.5 verified |
+| ASN | AS51167 CONTABO | RIPE |
+| Domain | none (deferred ADR-0009) | |
 | TLS certs | none | |
 
 ## DNS
@@ -100,4 +102,4 @@ None.
 
 ## IP reputation
 
-Not checked yet — Stage 3.5.
+See `docs/REPUTATION.md`. DNSBL (Spamhaus ZEN, SpamCop, SORBS, Barracuda, CBL): **clean** as of 2026-07-09. Manual AbuseIPDB/Talos re-check from browser recommended periodically.

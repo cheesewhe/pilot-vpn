@@ -7,7 +7,7 @@ echo "vpn-project test suite"
 echo "======================"
 
 FAIL_TOTAL=0
-for t in ssh dns dns-leak ipv6 mtu firewall vpn routing prometheus backup speed; do
+for t in ssh dns dns-leak ipv6 mtu firewall vpn routing prometheus backup reputation speed; do
   echo
   if ! bash "$ROOT/tests/${t}.sh"; then
     FAIL_TOTAL=$((FAIL_TOTAL + 1))

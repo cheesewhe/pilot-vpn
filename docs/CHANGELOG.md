@@ -2,6 +2,27 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-09 — Stage 3.5 complete
+
+### What
+
+- Documented IP reputation (DNSBL clean), PTR, ASN AS51167 Contabo
+- Public port inventory; latency baseline; DNS strategy notes
+- ADR-0009: defer custom domain / public TLS until protocol needs it
+
+### Why
+
+Avoid repeating blind IP issues from the previous VPS; decide domain/TLS consciously.
+
+### Verify
+
+- `/opt/vpn-project/tests/reputation.sh`
+- `docs/REPUTATION.md`
+
+### Rollback
+
+Docs-only (plus optional traceroute package).
+
 ## 2026-07-09 — Stage 3 complete
 
 ### What

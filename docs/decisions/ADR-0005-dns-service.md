@@ -9,7 +9,14 @@ DNS must be a core service shared by any VPN backend (cache, IPv6 policy, upstre
 
 ## Decision
 
-TBD Stage 4: Unbound or CoreDNS on localhost / VPN subnet only.
+TBD Stage 4 implementation choice: **Unbound or CoreDNS**, bind **localhost / future VPN subnet only** (never public recursive).
+
+Constraints from Stage 3.5 (`docs/REPUTATION.md`):
+
+- Upstream for tunnel clients: prefer `1.1.1.1` + `9.9.9.9` (not Contabo DNS)
+- Host OS may keep systemd-resolved + Contabo for package updates
+- No open resolver on public IP
+- Shared by any VPN backend
 
 ## Consequences
 
