@@ -18,10 +18,29 @@ else
   skip "systemd-resolved not active"
 fi
 
-if [[ -d /etc/vpn-project ]] && systemctl list-unit-files 2>/dev/null | grep -qE 'unbound|coredns'; then
-  skip "project Core DNS unit check (deploy Stage 4)"
+if systemctl is-active --quiet unbound; then
+  pass "unbound active"
 else
-  skip "project Core DNS not deployed yet"
+  fail "unbound not active"
+fi
+
+if ss -tuln | grep -qE '127\.0\.0\.1:53'; then
+  pass "unbound/local :53 on 127.0.0.1"
+else
+  fail "no 127.0.0.1:53 listener"
+fi
+
+if ss -tuln | grep -qE '0\.0\.0\.0:53|\[::\]:53'; then
+  fail "public :53 bind detected"
+else
+  pass "no public :53 bind"
+fi
+
+ANS="$(dig @127.0.0.1 example.com A +time=3 +tries=1 +short | head -1 || true)"
+if [[ -n "$ANS" ]]; then
+  pass "dig @127.0.0.1 example.com -> $ANS"
+else
+  fail "dig @127.0.0.1 example.com failed"
 fi
 
 summary

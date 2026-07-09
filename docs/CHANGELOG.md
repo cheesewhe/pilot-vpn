@@ -2,6 +2,27 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-09 — Stage 4 complete
+
+### What
+
+- Unbound 1.19.2 Core DNS on 127.0.0.1/::1:53 only; forward Cloudflare+Quad9
+- Host systemd-resolved unchanged; unbound-resolvconf masked
+- ADR-0005 accepted
+
+### Why
+
+Shared DNS service for any future VPN backend without public open resolver.
+
+### Verify
+
+- `dig @127.0.0.1 example.com`
+- `/opt/vpn-project/tests/dns.sh`
+
+### Rollback
+
+See `docs/checklists/stage-4.md`.
+
 ## 2026-07-09 — Stage 3.5 complete
 
 ### What

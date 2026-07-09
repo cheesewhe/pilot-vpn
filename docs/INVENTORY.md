@@ -2,7 +2,7 @@
 
 Living inventory of the node. Update on every stage.
 
-**Last updated:** 2026-07-09 (Stage 3.5)
+**Last updated:** 2026-07-09 (Stage 4)
 
 ## Host
 
@@ -38,8 +38,8 @@ Living inventory of the node. Update on every stage.
 
 | Role | Value |
 |------|-------|
-| Host resolver | systemd-resolved → 195.179.224.53, 209.126.15.53 |
-| Project Core DNS | not deployed | Stage 4 |
+| Host resolver | systemd-resolved → Contabo DNS |
+| Project Core DNS | Unbound 1.19.2 | 127.0.0.1:53 / ::1:53 (ADR-0005) |
 
 ## Public services / ports
 
