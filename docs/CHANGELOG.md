@@ -2,6 +2,27 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-09 — Stage 1.5 complete
+
+### What
+
+- Tightened `.gitignore`; live configs → `*.template` only in git
+- Generated deploy key at `/var/lib/vpn-project/secrets/git_deploy_ed25519` (not in git)
+- Linked `origin` → `git@github.com:cheesewhe/pilot-vpn.git` and pushed `main`
+
+### Why
+
+Private remote backup of infrastructure-as-code without leaking secrets.
+
+### Verify
+
+- `git status` clean; branch tracks `origin/main`
+- `git ls-files` contains no secrets / live conf dumps
+
+### Rollback
+
+- `git remote remove origin` (local history retained)
+
 ## 2026-07-09 — Stage 1 complete
 
 ### What

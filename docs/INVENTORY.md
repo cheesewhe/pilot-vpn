@@ -2,7 +2,7 @@
 
 Living inventory of the node. Update on every stage.
 
-**Last updated:** 2026-07-09 (Stage 1)
+**Last updated:** 2026-07-09 (Stage 1.5)
 
 ## Host
 
@@ -59,7 +59,9 @@ Loopback-only: systemd-resolved :53, Cursor node ports.
 
 | Component | Status | Location |
 |-----------|--------|----------|
-| vpn-project tree | Stage 0–1 | `/opt/vpn-project` |
+| vpn-project tree | Stage 0–1.5 | `/opt/vpn-project` |
+| Git remote | private | `git@github.com:cheesewhe/pilot-vpn.git` |
+| Git deploy key | present | `/var/lib/vpn-project/secrets/git_deploy_ed25519` |
 | Runtime dirs | Stage 0 | `/etc`, `/var/lib`, `/var/log` vpn-project |
 | fail2ban | active, jail sshd | `/etc/fail2ban/jail.d/vpn-project-sshd.conf` |
 | UFW | active | ADR-0002 |
