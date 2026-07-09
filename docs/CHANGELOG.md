@@ -2,6 +2,26 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-09 — Stage 5 complete
+
+### What
+
+- Protocol comparison across WG / VLESS+REALITY / Hysteria2 / TUIC / OpenVPN
+- ADR-0007 accepted: **WireGuard primary**; secondary transport deferred
+
+### Why
+
+Choose transport after infrastructure + threat model, not before.
+
+### Verify
+
+- `docs/PROTOCOL_COMPARISON.md`, ADR-0007 status accepted
+- WireGuard not installed yet
+
+### Rollback
+
+Supersede ADR-0007 before Stage 6 if choice changes.
+
 ## 2026-07-09 — Stage 4 complete
 
 ### What

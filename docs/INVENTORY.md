@@ -2,7 +2,7 @@
 
 Living inventory of the node. Update on every stage.
 
-**Last updated:** 2026-07-09 (Stage 4)
+**Last updated:** 2026-07-09 (Stage 5)
 
 ## Host
 
@@ -74,7 +74,7 @@ Loopback-only: systemd-resolved :53, Cursor node ports, node_exporter :9100, Pro
 | Prometheus | 3.13.0 active | 127.0.0.1:9090 |
 | Grafana | 13.1.0 active | 127.0.0.1:3000 (SSH tunnel) |
 | Core DNS | not installed | Stage 4 |
-| VPN backend | not chosen | Stage 5–6 |
+| VPN backend | WireGuard (ADR-0007) — not installed yet | Stage 6 |
 | Management API | not installed | Stage 7 |
 
 ## Users (OS)
