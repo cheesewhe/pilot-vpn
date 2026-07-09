@@ -1,0 +1,29 @@
+# Secrets and runtime — never commit
+secrets/
+*.key
+*.pem
+*.p12
+*.psk
+id_ed25519
+id_rsa
+*_private*
+.env
+.env.*
+
+# Local restic / backup blobs
+backups/*.tar
+backups/*.tar.gz
+backups/restic/
+*.restic
+
+# Editor / OS
+.DS_Store
+*.swp
+*~
+.idea/
+.vscode/
+
+# Test / temp artifacts
+tests/out/
+*.tmp
+*.log
