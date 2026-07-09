@@ -2,16 +2,18 @@
 
 Living network map. Update when ports or services change.
 
-**Last updated:** 2026-07-09 (Stage 0)
+**Last updated:** 2026-07-09 (Stage 1)
 
-## Current (Stage 0)
+## Current (Stage 1)
 
 ```mermaid
 flowchart LR
   Admin[Admin_MacBook]
   Internet[Internet]
+  UFW[UFW_deny_in]
+  SSH[sshd_key_only]
   VPS[Contabo_VPS]
-  Admin -->|SSH_22_ED25519| VPS
+  Admin -->|SSH_22_ED25519| UFW --> SSH
   VPS -->|default_route| Internet
   VPS -->|DNS_to_provider| ProviderDNS[Contabo_DNS]
 ```
@@ -23,7 +25,7 @@ flowchart LR
 
 ### Public exposure
 
-- TCP/22 SSH only
+- TCP/22 SSH only (UFW allow; PasswordAuthentication no)
 
 ### Not yet present
 
@@ -58,12 +60,11 @@ flowchart TB
   API --> VPN
 ```
 
-## Port policy (planned)
+## Port policy
 
 | Stage | Port | Proto | Source | Service |
 |-------|------|-------|--------|---------|
-| 0–now | 22 | tcp | any (tighten later) | sshd |
-| 1 | 22 | tcp | any | sshd + UFW default deny |
+| 1 (now) | 22 | tcp | any (tighten later) | sshd + UFW default deny |
 | 2 | — | — | localhost | exporters / Prometheus / Grafana |
 | 4 | — | — | localhost / VPN subnet | Core DNS |
 | 6 | TBD | TBD | any or restricted | VPN backend (ADR-0007) |

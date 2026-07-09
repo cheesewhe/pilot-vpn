@@ -18,13 +18,28 @@ else
   fail "missing ED25519 authorized_keys"
 fi
 
-# Effective password auth: warn until Stage 1 hardens it (do not fail Stage 0 gate)
-if sshd -T 2>/dev/null | grep -qi '^passwordauthentication no'; then
+# Capture full sshd -T first — avoid pipefail+grep -q SIGPIPE false negatives
+SSHD_T="$(sshd -T 2>/dev/null)" || SSHD_T=""
+if [[ -z "$SSHD_T" ]]; then
+  fail "could not query sshd -T"
+elif echo "$SSHD_T" | grep -qi '^passwordauthentication no'; then
   pass "sshd effective PasswordAuthentication no"
-elif sshd -T 2>/dev/null | grep -qi '^passwordauthentication yes'; then
-  skip "sshd PasswordAuthentication yes — harden in Stage 1"
+elif echo "$SSHD_T" | grep -qi '^passwordauthentication yes'; then
+  fail "sshd PasswordAuthentication yes (Stage 1 requires no)"
 else
-  skip "could not query sshd -T"
+  fail "passwordauthentication directive missing from sshd -T"
+fi
+
+if echo "$SSHD_T" | grep -qiE '^permitrootlogin (without-password|prohibit-password)'; then
+  pass "PermitRootLogin key-only"
+else
+  fail "PermitRootLogin not key-only"
+fi
+
+if systemctl is-active --quiet fail2ban && fail2ban-client status sshd >/dev/null 2>&1; then
+  pass "fail2ban sshd jail active"
+else
+  fail "fail2ban sshd jail missing"
 fi
 
 summary

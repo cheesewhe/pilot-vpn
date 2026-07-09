@@ -1,23 +1,39 @@
-# ADR-0002: Firewall (placeholder)
+# ADR-0002: Host firewall (UFW)
 
-- **Status:** proposed
+- **Status:** accepted
 - **Date:** 2026-07-09
+- **Deciders:** project owner + operator
 
 ## Context
 
-Host has no active firewall at baseline. Stage 1 will enable UFW.
+Baseline host had no active firewall (UFW inactive, iptables ACCEPT). Any future misbound service would be public. Threat model requires minimal public exposure.
 
 ## Decision
 
-TBD at Stage 1 acceptance: UFW default deny incoming; allow SSH; IPv6 on; VPN ports added only when backend exists.
+Use **UFW** with:
+
+- `IPV6=yes`
+- Default: deny incoming, allow outgoing, routed disabled (until VPN NAT)
+- Allow TCP/22 (OpenSSH) IPv4+IPv6
+- Enable on boot
+- VPN ports added only when a backend is deployed (Stage 6)
 
 ## Consequences
 
-TBD
+- Public attack surface limited to SSH until VPN
+- Risk of lockout on misconfiguration — mitigated by allow-SSH-before-enable and Contabo serial
+- Routed/forward traffic still denied until VPN stage explicitly opens it
 
 ## Alternatives considered
 
-| Option | Notes |
-|--------|-------|
-| nftables raw | More flexible; higher footgun for v1 |
-| provider firewall only | Contabo panel rules possible later; host UFW still required |
+| Option | Why not |
+|--------|---------|
+| nftables raw only | More flexible but higher footgun for v1 |
+| Provider panel firewall only | Incomplete; host must defend itself |
+| firewalld | Non-default on Ubuntu server; no benefit here |
+
+## References
+
+- `docs/THREAT_MODEL.md`
+- `docs/NETWORK.md`
+- Stage 1 checklist

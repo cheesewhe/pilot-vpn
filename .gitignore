@@ -14,6 +14,7 @@ id_rsa
 backups/*.tar
 backups/*.tar.gz
 backups/restic/
+backups/manifests/
 *.restic
 
 # Editor / OS

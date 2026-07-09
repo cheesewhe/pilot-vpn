@@ -2,6 +2,39 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-09 — Stage 1 complete
+
+### What
+
+- Confirmed boot on kernel 6.8.0-134-generic; SSH key auth OK
+- Added 4 GiB swapfile
+- Enabled UFW (IPv6, deny in, allow 22/tcp)
+- SSH hardening drop-in: PasswordAuthentication no, root key-only
+- fail2ban sshd jail; ModemManager masked
+- ADR-0002 accepted; ADR-0008 SSH hardening accepted
+
+### Why
+
+Reduce public attack surface and close password SSH before adding services.
+
+### Files
+
+- `/etc/ssh/sshd_config.d/00-vpn-project-hardening.conf`
+- `/etc/fail2ban/jail.d/vpn-project-sshd.conf`
+- `/etc/default/ufw`, UFW rules
+- `/swapfile`, `/etc/fstab`
+- `/opt/vpn-project/docs/**`, `configs/ssh|fail2ban|ufw`
+
+### Verify
+
+- `EXPECT_UFW_ACTIVE=1 /opt/vpn-project/tests/all.sh`
+- `sshd -T | grep passwordauthentication` → no
+- `fail2ban-client status sshd`
+
+### Rollback
+
+See `docs/checklists/stage-1.md`.
+
 ## 2026-07-09 — Stage 0 complete
 
 ### What
