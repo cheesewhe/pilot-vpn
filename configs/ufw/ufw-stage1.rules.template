@@ -1,0 +1,7 @@
+# Expected UFW policy after Stage 1 (not a restore script)
+IPV6=yes
+DEFAULT_INPUT_POLICY=deny
+DEFAULT_OUTPUT_POLICY=allow
+DEFAULT_FORWARD_POLICY=deny
+ALLOW: 22/tcp  # OpenSSH (IPv4 + IPv6)
+# VPN ports: add only after Stage 6 ADR

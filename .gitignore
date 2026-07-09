@@ -1,21 +1,46 @@
 # Secrets and runtime — never commit
 secrets/
+/var/
 *.key
 *.pem
 *.p12
 *.psk
+*.crt
+*.csr
 id_ed25519
+id_ed25519.pub
 id_rsa
+id_rsa.pub
 *_private*
+*_priv*
+.git-crypt*
 .env
 .env.*
+!.env.example
 
-# Local restic / backup blobs
-backups/*.tar
-backups/*.tar.gz
-backups/restic/
-backups/manifests/
+# Live / host-specific config copies (use *.template in git)
+configs/**/*.conf
+configs/**/*.txt
+configs/**/*.yml
+configs/**/*.yaml
+configs/**/*.json
+!configs/**/*.template
+!configs/**/*.example
+!configs/**/README.md
+!configs/.gitkeep
+
+# Local restic / backup blobs / manifests
+backups/**
+!backups/.gitkeep
+!backups/README.md
 *.restic
+*.tar
+*.tar.gz
+
+# SSH / deploy material that might be copied into tree by mistake
+known_hosts
+authorized_keys
+*.pub
 
 # Editor / OS
 .DS_Store
@@ -24,7 +49,14 @@ backups/manifests/
 .idea/
 .vscode/
 
-# Test / temp artifacts
+# Test / temp / runtime artifacts
 tests/out/
 *.tmp
 *.log
+*.bak
+*~
+
+# Monitoring runtime data (if ever under /opt)
+monitoring/data/
+monitoring/grafana/data/
+monitoring/prometheus/data/

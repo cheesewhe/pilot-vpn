@@ -1,0 +1,5 @@
+# Stage 1 swap
+# Create: fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile
+# fstab: /swapfile none swap sw 0 0
+SIZE=4G
+PATH=/swapfile

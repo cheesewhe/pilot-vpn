@@ -1,4 +1,5 @@
 # vpn-project Stage 1 — must sort before 50-cloud-init (OpenSSH: first value wins)
+# Install: cp to /etc/ssh/sshd_config.d/00-vpn-project-hardening.conf
 PasswordAuthentication no
 KbdInteractiveAuthentication no
 PubkeyAuthentication yes

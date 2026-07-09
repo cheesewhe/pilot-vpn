@@ -1,3 +1,4 @@
+# Install: /etc/fail2ban/jail.d/vpn-project-sshd.conf
 [sshd]
 enabled = true
 port = ssh
