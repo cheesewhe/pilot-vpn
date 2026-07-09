@@ -1,38 +1,56 @@
 #!/usr/bin/env bash
-# Stage 0/1 lightweight file backup until restic (Stage 3)
+# Encrypted backup via restic (+ lightweight file manifest pointer)
 set -euo pipefail
 
+TAG="${1:-manual}"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
-DEST="/opt/vpn-project/backups/manifests/${STAMP}"
-mkdir -p "$DEST"
 
-echo "Backing up critical paths to $DEST"
+if [[ ! -f /etc/vpn-project/restic.env ]]; then
+  echo "missing /etc/vpn-project/restic.env — Stage 3 not initialized" >&2
+  exit 1
+fi
+# shellcheck disable=SC1091
+source /etc/vpn-project/restic.env
 
-copy_if() {
-  local src="$1"
-  if [[ -e "$src" ]]; then
-    mkdir -p "$DEST$(dirname "$src")"
-    cp -a "$src" "$DEST$src"
-    echo "  + $src"
-  fi
-}
+EXCLUDES="/etc/vpn-project/restic-excludes.txt"
+if [[ ! -f "$EXCLUDES" ]]; then
+  EXCLUDES="/opt/vpn-project/configs/restic/excludes.template"
+fi
 
-copy_if /etc/ssh/sshd_config
-copy_if /etc/ssh/sshd_config.d
-copy_if /etc/netplan
-copy_if /etc/ufw
-copy_if /etc/sysctl.conf
-copy_if /etc/sysctl.d
-copy_if /etc/vpn-project
+echo "== restic backup tag=${TAG} stamp=${STAMP} =="
 
-# Manifest
+restic backup \
+  --tag "$TAG" \
+  --tag "stamp:${STAMP}" \
+  --exclude-file="$EXCLUDES" \
+  /etc/vpn-project \
+  /etc/ssh/sshd_config \
+  /etc/ssh/sshd_config.d \
+  /etc/ufw \
+  /etc/default/ufw \
+  /etc/fail2ban \
+  /etc/sysctl.conf \
+  /etc/sysctl.d \
+  /etc/fstab \
+  /etc/systemd/system/node_exporter.service \
+  /etc/systemd/system/prometheus.service \
+  /etc/systemd/system/grafana.service \
+  /var/lib/vpn-project/secrets \
+  /var/lib/vpn-project/data \
+  /opt/vpn-project
+
+MANIFEST_DIR="/opt/vpn-project/backups/manifests/${STAMP}"
+mkdir -p "$MANIFEST_DIR"
 {
   echo "stamp=$STAMP"
+  echo "tag=$TAG"
   echo "host=$(hostname -f)"
   echo "kernel=$(uname -r)"
+  echo "repo=$RESTIC_REPOSITORY"
+  restic snapshots --latest 1
+  echo
   ss -tuln
-} > "$DEST/MANIFEST.txt"
+} > "$MANIFEST_DIR/MANIFEST.txt"
 
-# Do not store secrets here; remind operator
-echo "NOTE: secrets under /var/lib/vpn-project are NOT copied by this helper (use restic Stage 3)."
-echo "OK $DEST"
+echo "OK restic snapshot tag=$TAG stamp=$STAMP"
+restic snapshots --latest 5

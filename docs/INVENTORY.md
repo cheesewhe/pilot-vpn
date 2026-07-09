@@ -2,7 +2,7 @@
 
 Living inventory of the node. Update on every stage.
 
-**Last updated:** 2026-07-09 (Stage 2)
+**Last updated:** 2026-07-09 (Stage 3)
 
 ## Host
 
@@ -67,7 +67,7 @@ Loopback-only: systemd-resolved :53, Cursor node ports, node_exporter :9100, Pro
 | UFW | active | ADR-0002 |
 | SSH hardening | active | `/etc/ssh/sshd_config.d/00-vpn-project-hardening.conf` |
 | ModemManager | masked | Stage 1 |
-| restic | not installed | Stage 3 |
+| restic | 0.16.4 active | `/var/lib/vpn-project/restic/repo` + daily timer |
 | node_exporter | 1.11.1 active | 127.0.0.1:9100 |
 | Prometheus | 3.13.0 active | 127.0.0.1:9090 |
 | Grafana | 13.1.0 active | 127.0.0.1:3000 (SSH tunnel) |
@@ -87,7 +87,12 @@ None.
 
 ## Backup repositories
 
-File manifests under `/opt/vpn-project/backups/manifests/` (restic planned Stage 3).
+| Item | Value |
+|------|-------|
+| restic repo | `/var/lib/vpn-project/restic/repo` (encrypted) |
+| password file | `/var/lib/vpn-project/secrets/password_restic` |
+| schedule | `vpn-project-backup.timer` ~03:30 |
+| manifests | `/opt/vpn-project/backups/manifests/` (pointers only) |
 
 ## Certificates
 

@@ -2,6 +2,28 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-09 — Stage 3 complete
+
+### What
+
+- Installed restic 0.16.4; local encrypted repo at `/var/lib/vpn-project/restic/repo`
+- `scripts/backup.sh` + daily `vpn-project-backup.timer`; smoke restore OK
+- journald retention 14d/500M; logrotate for `/var/log/vpn-project`
+- ADR-0004 accepted
+
+### Why
+
+Encrypted recoverable backups of configs/secrets before more services.
+
+### Verify
+
+- `restic snapshots` (via `source /etc/vpn-project/restic.env`)
+- `/opt/vpn-project/tests/backup.sh`
+
+### Rollback
+
+See `docs/checklists/stage-3.md`.
+
 ## 2026-07-09 — Stage 2 complete
 
 ### What

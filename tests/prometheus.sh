@@ -29,7 +29,7 @@ for port in 9100 9090 3000; do
 done
 
 METRICS="$(curl -fsS http://127.0.0.1:9100/metrics)"
-if echo "$METRICS" | grep -q node_cpu_seconds_total; then
+if [[ "$METRICS" == *node_cpu_seconds_total* ]]; then
   pass "node_exporter metrics"
 else
   fail "node_exporter metrics missing"

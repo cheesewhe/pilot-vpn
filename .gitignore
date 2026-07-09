@@ -64,3 +64,7 @@ monitoring/prometheus/data/
 # Live monitoring config with secrets (templates only in git)
 monitoring/**/grafana.ini
 !monitoring/templates/**
+
+# restic live env / local repo (never commit)
+**/restic.env
+**/password_restic

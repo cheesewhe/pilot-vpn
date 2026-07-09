@@ -1,0 +1,10 @@
+[Unit]
+Description=vpn-project restic backup
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/vpn-project/scripts/backup.sh scheduled
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7

@@ -1,31 +1,50 @@
 # RESTORE
 
-**Status:** draft (Stage 0). Full procedure after Stage 3 (restic) and Stage 6 (VPN).
+**Status:** Stage 3 baseline (local restic). Offsite copy still pending.
 
-## What this project needs to rebuild a node
+## What is required to rebuild
 
-1. This git repo (`/opt/vpn-project`) — docs, scripts, ADRs, configs templates
-2. Encrypted restic repository (Stage 3+) — secrets + `/var/lib/vpn-project` + selected `/etc`
-3. Operator SSH public keys
-4. Contabo account (recreate VPS if IP/host lost)
-5. PROTOCOL ADR + client re-issue process
+1. Git repo `git@github.com:cheesewhe/pilot-vpn.git` → `/opt/vpn-project`
+2. restic password: `/var/lib/vpn-project/secrets/password_restic` (or a printed/offline copy)
+3. restic repository data: `/var/lib/vpn-project/restic/repo` (or future offsite clone)
+4. Operator SSH public keys
+5. Contabo account if the VPS itself is gone
 
-## Stage 0 recovery (docs only)
+## Everyday backup
 
-If only `/opt/vpn-project` is lost but OS is intact: re-clone/copy git tree. No host services depend on it yet.
+```bash
+/opt/vpn-project/scripts/backup.sh pre-change
+```
 
-## Future full restore (outline)
+Daily timer: `vpn-project-backup.timer` (~03:30).
 
-1. Provision Ubuntu 24.04 on Contabo
-2. Install SSH keys; verify serial console
-3. Restore `/opt/vpn-project` from git
-4. Restore `/var/lib/vpn-project` and `/etc/vpn-project` from restic
-5. Reinstall packages per INVENTORY + ADRs
-6. Enable units; run `./tests/all.sh`
-7. Re-issue clients if keys rotated
+## Smoke restore
 
-## Gaps to close later
+```bash
+/opt/vpn-project/scripts/restic-restore-smoke.sh
+# or specific path:
+/opt/vpn-project/scripts/restic-restore-smoke.sh /etc/vpn-project/monitoring/VERSIONS
+```
 
-- [ ] restic repo location + password storage procedure
-- [ ] Ordered service bring-up script
-- [ ] Offsite copy of restic repo
+## Partial restore example
+
+```bash
+source /etc/vpn-project/restic.env
+TMP=$(mktemp -d)
+restic restore latest --target "$TMP" --include /etc/ssh/sshd_config.d
+# inspect then copy carefully
+```
+
+## Full node rebuild (outline)
+
+1. Provision Ubuntu 24.04; install SSH keys; verify serial console
+2. `git clone` project; install packages per INVENTORY + ADRs
+3. Restore `/etc/vpn-project`, `/var/lib/vpn-project/secrets`, units from restic
+4. Re-enable services; run `./tests/all.sh`
+5. Re-issue clients if keys rotated
+
+## Gaps still open
+
+- [ ] Offsite restic copy (S3/B2/second VPS) — new ADR
+- [ ] Printed/offline escrow of `password_restic`
+- [ ] Ordered `scripts/restore-node.sh` automation

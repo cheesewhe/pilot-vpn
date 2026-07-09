@@ -1,0 +1,15 @@
+# Paths excluded from restic backups
+/var/lib/vpn-project/restic
+/var/lib/vpn-project/monitoring/prometheus
+/var/lib/vpn-project/monitoring/grafana
+/opt/vpn-project/.git
+/opt/vpn-project/backups/manifests
+/opt/grafana
+*.tmp
+*.log
+/tmp
+/proc
+/sys
+/dev
+/run
+/swapfile

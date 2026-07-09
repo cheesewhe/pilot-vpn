@@ -17,7 +17,7 @@ Before any of the following, the operator (or agent) must explain **what / why /
 
 1. Explain change
 2. `git status` clean or commit WIP docs
-3. Backup: restic tag `pre-change` (after Stage 3) + copy critical files under `/opt/vpn-project/backups/manifests/`
+3. Backup: `/opt/vpn-project/scripts/backup.sh pre-change` (restic) + manifests under `/opt/vpn-project/backups/manifests/`
 4. Apply
 5. Verify with stage checklist + relevant `./tests/*.sh`
 6. Keep old SSH session open until a **new** session succeeds
