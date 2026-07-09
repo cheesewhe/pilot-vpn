@@ -60,3 +60,7 @@ tests/out/
 monitoring/data/
 monitoring/grafana/data/
 monitoring/prometheus/data/
+
+# Live monitoring config with secrets (templates only in git)
+monitoring/**/grafana.ini
+!monitoring/templates/**

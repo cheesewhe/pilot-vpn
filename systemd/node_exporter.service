@@ -1,0 +1,21 @@
+[Unit]
+Description=Prometheus Node Exporter
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=node_exp
+Group=node_exp
+Type=simple
+ExecStart=/usr/local/bin/node_exporter \
+  --web.listen-address=127.0.0.1:9100 \
+  --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run|var/lib/docker/.+)($|/)
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

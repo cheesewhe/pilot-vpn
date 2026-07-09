@@ -1,0 +1,23 @@
+[Unit]
+Description=Grafana
+After=network-online.target prometheus.service
+Wants=network-online.target
+
+[Service]
+User=grafana
+Group=grafana
+Type=simple
+WorkingDirectory=/opt/grafana
+Environment=GF_PATHS_CONFIG=/etc/vpn-project/monitoring/grafana.ini
+ExecStart=/opt/grafana/bin/grafana server \
+  --homepath=/opt/grafana \
+  --config=/etc/vpn-project/monitoring/grafana.ini
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ReadWritePaths=/var/lib/vpn-project/monitoring/grafana /var/log/vpn-project
+
+[Install]
+WantedBy=multi-user.target

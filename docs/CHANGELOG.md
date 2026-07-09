@@ -2,6 +2,27 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-09 — Stage 2 complete
+
+### What
+
+- Native node_exporter 1.11.1, Prometheus 3.13.0, Grafana 13.1.0 on 127.0.0.1 only
+- systemd units + provisioning dashboard; ADR-0003 accepted
+- Grafana admin password in `/var/lib/vpn-project/secrets/password_grafana_admin`
+
+### Why
+
+Observe the VPS before introducing VPN services; keep metrics UI off the public internet.
+
+### Verify
+
+- `/opt/vpn-project/tests/prometheus.sh`
+- SSH tunnel to :3000 / :9090
+
+### Rollback
+
+See `docs/checklists/stage-2.md`.
+
 ## 2026-07-09 — Stage 1.5 complete
 
 ### What

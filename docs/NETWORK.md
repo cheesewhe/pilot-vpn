@@ -2,7 +2,7 @@
 
 Living network map. Update when ports or services change.
 
-**Last updated:** 2026-07-09 (Stage 1)
+**Last updated:** 2026-07-09 (Stage 2)
 
 ## Current (Stage 1)
 
@@ -31,7 +31,7 @@ flowchart LR
 
 - VPN tunnel interface
 - Project DNS (Unbound/CoreDNS)
-- Prometheus/Grafana (planned localhost)
+- Prometheus/Grafana on 127.0.0.1 (Stage 2) — access via SSH tunnel
 - Management API (planned localhost / unix socket)
 
 ## Target architecture (after Stage 6+)
@@ -65,7 +65,7 @@ flowchart TB
 | Stage | Port | Proto | Source | Service |
 |-------|------|-------|--------|---------|
 | 1 (now) | 22 | tcp | any (tighten later) | sshd + UFW default deny |
-| 2 | — | — | localhost | exporters / Prometheus / Grafana |
+| 2 (now) | 9100/9090/3000 | tcp | localhost only | node_exporter / Prometheus / Grafana |
 | 4 | — | — | localhost / VPN subnet | Core DNS |
 | 6 | TBD | TBD | any or restricted | VPN backend (ADR-0007) |
 | 7 | — | — | localhost | Management API |

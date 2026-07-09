@@ -2,7 +2,7 @@
 
 Living inventory of the node. Update on every stage.
 
-**Last updated:** 2026-07-09 (Stage 1.5)
+**Last updated:** 2026-07-09 (Stage 2)
 
 ## Host
 
@@ -45,7 +45,7 @@ Living inventory of the node. Update on every stage.
 |------|-------|---------|------|-------|
 | 22 | tcp | sshd | ED25519 keys only | UFW allowed; PasswordAuth no |
 
-Loopback-only: systemd-resolved :53, Cursor node ports.
+Loopback-only: systemd-resolved :53, Cursor node ports, node_exporter :9100, Prometheus :9090, Grafana :3000.
 
 ## Firewall
 
@@ -68,7 +68,9 @@ Loopback-only: systemd-resolved :53, Cursor node ports.
 | SSH hardening | active | `/etc/ssh/sshd_config.d/00-vpn-project-hardening.conf` |
 | ModemManager | masked | Stage 1 |
 | restic | not installed | Stage 3 |
-| Prometheus/Grafana | not installed | Stage 2 |
+| node_exporter | 1.11.1 active | 127.0.0.1:9100 |
+| Prometheus | 3.13.0 active | 127.0.0.1:9090 |
+| Grafana | 13.1.0 active | 127.0.0.1:3000 (SSH tunnel) |
 | Core DNS | not installed | Stage 4 |
 | VPN backend | not chosen | Stage 5–6 |
 | Management API | not installed | Stage 7 |

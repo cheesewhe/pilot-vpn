@@ -19,7 +19,7 @@ Follow Linux FHS split:
 | `/var/lib/vpn-project` | Secrets (`secrets/`), live user data, restic repo metadata |
 | `/var/log/vpn-project` | Project log files when not using journald only |
 
-Permissions: `/var/lib/vpn-project` and `secrets/` mode `700`; secret files `600`. Git ignores all secret patterns.
+Permissions: `/var/lib/vpn-project` mode `755` (service users must traverse to `monitoring/`); `secrets/` mode `700`; secret files `600`. Git ignores all secret patterns.
 
 Secrets are created only via `scripts/gen-*.sh`.
 

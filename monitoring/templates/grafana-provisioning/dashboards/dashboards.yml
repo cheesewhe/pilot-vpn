@@ -1,0 +1,10 @@
+apiVersion: 1
+providers:
+  - name: vpn-project
+    orgId: 1
+    folder: vpn-project
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    options:
+      path: /etc/vpn-project/monitoring/grafana-provisioning/dashboards
