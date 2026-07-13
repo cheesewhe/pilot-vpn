@@ -2,7 +2,7 @@
 
 Living inventory of the node. Update on every stage.
 
-**Last updated:** 2026-07-13 (Stage 6)
+**Last updated:** 2026-07-13 (Stage 7.5)
 
 ## Host
 
@@ -86,7 +86,11 @@ Loopback-only: systemd-resolved :53, Cursor node ports, node_exporter :9100, Pro
 
 ## VPN / API users
 
-None.
+| User | Devices |
+|------|--------|
+| owner | macbook (10.66.0.2) |
+
+See `docs/DATA_MODEL.md`.
 
 ## Backup repositories
 

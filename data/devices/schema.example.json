@@ -1,0 +1,15 @@
+{
+  "id": "example-user-macbook",
+  "user_id": "example-user",
+  "server_id": "contabo-eu-1",
+  "status": "active",
+  "created_at": "2026-07-13T00:00:00Z",
+  "config_issued_at": "2026-07-13T00:00:00Z",
+  "wg": {
+    "ipv4": "10.66.0.2",
+    "ipv6": "fd66:66:66::2",
+    "public_key_file": "/var/lib/vpn-project/secrets/wireguard/peers/example_public.key",
+    "client_conf": "/var/lib/vpn-project/secrets/wireguard/clients/example.conf"
+  },
+  "notes": "Schema sample — one device = one WireGuard peer"
+}

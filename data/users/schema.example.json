@@ -1,0 +1,10 @@
+{
+  "id": "example-user",
+  "display_name": "Example User",
+  "group": "default",
+  "status": "active",
+  "created_at": "2026-07-13T00:00:00Z",
+  "expires_at": null,
+  "device_ids": ["example-user-macbook"],
+  "notes": "Schema sample — live users live under /var/lib/vpn-project/data/users/"
+}

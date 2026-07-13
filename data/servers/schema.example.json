@@ -1,0 +1,11 @@
+{
+  "id": "contabo-eu-1",
+  "provider": "Contabo",
+  "region": "EU",
+  "endpoint": "173.249.39.129:51820",
+  "public_key": "SERVER_PUBLIC_KEY",
+  "ipv4": "173.249.39.129",
+  "ipv6": "2a02:c207:2341:3547::1",
+  "wg_subnet_v4": "10.66.0.0/24",
+  "wg_subnet_v6": "fd66:66:66::/64"
+}

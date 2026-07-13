@@ -2,6 +2,25 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-13 — Stages 6.5 / 7 / 7.5
+
+### What
+
+- Stage 6.5: `./tests/network.sh` + client validation checklist
+- Data model: users / devices / servers (`docs/DATA_MODEL.md`); normalized `owner` + `macbook`
+- Stage 7: deduped NAT (wg-quick only); network suite green
+- Stage 7.5: `docs/SECRETS.md` + categorized secrets dirs
+
+### Verify
+
+- `/opt/vpn-project/tests/network.sh`
+- `/opt/vpn-project/tests/all.sh`
+- Client checklist after connecting Mac
+
+### Next
+
+Stage 8: `vpnctl` CLI with `doctor`
+
 ## 2026-07-13 — Stage 6 complete
 
 ### What

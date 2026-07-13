@@ -1,64 +1,52 @@
 # ROADMAP
 
-**Mission:** build a personal secure VPN **platform** — automation, observability, and reproducible infrastructure — not just “install WireGuard”.
+**Mission:** build a personal secure VPN **platform** — automation, observability, and reproducible infrastructure — able to grow from one MacBook to dozens of devices and (later) multiple servers.
 
-## Done (platform foundation)
+## Done
 
 | Stage | Result |
 |-------|--------|
-| 0 | Baseline, FHS layout, threat model, git |
-| 1 | Swap, UFW, SSH key-only, fail2ban |
-| 1.5 | Private GitHub remote + deploy key |
-| 2 | node_exporter / Prometheus / Grafana (localhost + SSH tunnel) |
-| 3 | restic + daily timer + journald/logrotate |
-| 3.5 | IP reputation / PTR / DNSBL; domain+TLS deferred (ADR-0009) |
-| 4 | Unbound Core DNS on loopback |
-| 5 | Protocol ADR: **WireGuard primary** |
-| 6 | WireGuard production (`wg0`, macbook, DNS/MTU/docs) |
+| 0–5 | Hardening, monitoring, restic, reputation, Unbound, WG ADR |
+| 1.5 | Private GitHub + deploy key |
+| 6 | WireGuard production (`wg0`, macbook peer, DNS/MTU/docs) |
+| 6.5 | `./tests/network.sh` + client validation checklist |
+| 7 | Firewall/NAT/IPv6 polish (single MASQUERADE via wg-quick) |
+| 7.5 | Secrets policy + categorized dirs (`docs/SECRETS.md`) |
 
 ## Next
 
-### Stage 7 — Management CLI (`vpnctl`)
-
-Before any API:
+### Stage 8 — `vpnctl` CLI (heart of the project)
 
 ```text
-vpnctl add-user | revoke | list | gen-config | stats
+vpnctl add-user | add-device | revoke | list | export | stats | doctor
 ```
 
-CLI owns the operational truth over peers/files.
+Users are **entities**; devices are WireGuard peers. Bot/API never talk to WG directly.
 
-### Stage 8 — REST API
+### Stage 9 — REST API
 
-Thin HTTP/unix-socket layer calling the same functions as `vpnctl`  
-(`POST/DELETE/GET /users`, `GET /stats`).
+Thin layer over the same functions as `vpnctl`.
 
-### Stage 9 — Telegram bot
-
-Bot talks **only** to the API — never to WireGuard directly.
+### Stage 10 — Telegram bot
 
 ```text
 Telegram → REST API → vpnctl → WireGuard
 ```
 
-### Stage 10 — VPN metrics
+### Later
 
-WireGuard exporter → Prometheus → Grafana  
-(`peer_count`, handshakes, rx/tx, online users).  
-Alertmanager / Telegram alerts when useful (disk, backup failed, brute force) — after exporter works.
+- VPN metrics exporter + Grafana + Alertmanager
+- Optional panel
+- HA / second node (only after one mature node)
+- nftables, CrowdSec, blackbox, Loki
 
-### Stage 11 — Optional panel
+## Data model
 
-Web UI (peers, traffic, create config, QR, revoke) — only after domain/TLS ADR if public HTTPS is desired. Prefer SSH-tunnel or private access first.
-
-## Explicitly later (not before mature single-node)
-
-- HA / second VPS / failover
-- nftables migration (UFW is fine until WG+CLI are stable)
-- CrowdSec alongside fail2ban
-- Blackbox exporter (SSH/DNS/Prometheus/VPN probes)
-- Loki for centralized logs
+See `docs/DATA_MODEL.md` — User 1—\* Device \*—1 Server.
 
 ## Philosophy
 
-Prefer one mature, reproducible node (docs + git + restic + tests + CLI) before multi-node HA.
+1. Foundation before VPN; **validation before automation**.
+2. CLI before API before bot.
+3. One mature node before HA.
+4. Gate: `./tests/all.sh` and `./tests/network.sh`.

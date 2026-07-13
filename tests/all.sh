@@ -15,6 +15,12 @@ for t in ssh dns dns-leak ipv6 mtu firewall vpn routing prometheus backup reputa
 done
 
 echo
+echo "== network suite =="
+if ! bash "$ROOT/tests/network.sh"; then
+  FAIL_TOTAL=$((FAIL_TOTAL + 1))
+fi
+
+echo
 if [[ "$FAIL_TOTAL" -eq 0 ]]; then
   echo "ALL SUITES OK"
   exit 0
