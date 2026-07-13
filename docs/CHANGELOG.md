@@ -2,6 +2,19 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-13 — Worktree restore + roadmap refresh
+
+### What
+
+- Restored `/opt/vpn-project` from git after accidental mass deletions (`git restore .`)
+- Added `docs/ROADMAP.md`: CLI before API; bot → API only; VPN metrics after WG; HA deferred
+- Clarified mission: VPN **platform**, not single-protocol install
+
+### Verify
+
+- `git status` clean (except untracked manifests)
+- `./tests/all.sh` OK
+
 ## 2026-07-09 — Stage 5 complete
 
 ### What
