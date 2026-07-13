@@ -14,10 +14,11 @@
 | 3.5 | IP reputation / PTR / DNSBL; domain+TLS deferred (ADR-0009) |
 | 4 | Unbound Core DNS on loopback |
 | 5 | Protocol ADR: **WireGuard primary** |
+| 6 | WireGuard production (`wg0`, macbook, DNS/MTU/docs) |
 
 ## Next
 
-### Stage 6 — Production WireGuard (not “just up”)
+### Stage 7 — Management CLI (`vpnctl`)
 
 Deliverable: one server + one client that is usable day-to-day.
 

@@ -2,7 +2,7 @@
 
 Living network map. Update when ports or services change.
 
-**Last updated:** 2026-07-09 (Stage 4)
+**Last updated:** 2026-07-13 (Stage 6)
 
 ## Current (Stage 1)
 
@@ -25,7 +25,8 @@ flowchart LR
 
 ### Public exposure
 
-- TCP/22 SSH only (UFW allow; PasswordAuthentication no)
+- TCP/22 SSH (key-only)
+- UDP/51820 WireGuard
 
 ### Not yet present
 

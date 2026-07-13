@@ -2,7 +2,7 @@
 
 Living inventory of the node. Update on every stage.
 
-**Last updated:** 2026-07-09 (Stage 5)
+**Last updated:** 2026-07-13 (Stage 6)
 
 ## Host
 
@@ -46,6 +46,7 @@ Living inventory of the node. Update on every stage.
 | Port | Proto | Service | Auth | Notes |
 |------|-------|---------|------|-------|
 | 22 | tcp | sshd | ED25519 keys only | UFW allowed; PasswordAuth no |
+| 51820 | udp | WireGuard | peer keys | UFW allowed |
 
 Loopback-only: systemd-resolved :53, Cursor node ports, node_exporter :9100, Prometheus :9090, Grafana :3000.
 
@@ -74,7 +75,7 @@ Loopback-only: systemd-resolved :53, Cursor node ports, node_exporter :9100, Pro
 | Prometheus | 3.13.0 active | 127.0.0.1:9090 |
 | Grafana | 13.1.0 active | 127.0.0.1:3000 (SSH tunnel) |
 | Core DNS | not installed | Stage 4 |
-| VPN backend | WireGuard (ADR-0007) — not installed yet | Stage 6 |
+| VPN backend | WireGuard wg0 active | UDP 51820, peer macbook |
 | Management API | not installed | Stage 7 |
 
 ## Users (OS)

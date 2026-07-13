@@ -16,5 +16,17 @@ if ip -6 route | grep -q '^default '; then
 else
   skip "no IPv6 default route"
 fi
-skip "VPN routing table checks (Stage 6)"
+
+if ip route | grep -q '10.66.0.0/24'; then
+  pass "VPN IPv4 subnet route present"
+else
+  fail "missing 10.66.0.0/24 route"
+fi
+
+if [[ "$(sysctl -n net.ipv4.ip_forward)" == "1" ]]; then
+  pass "ip_forward enabled"
+else
+  fail "ip_forward disabled"
+fi
+
 summary

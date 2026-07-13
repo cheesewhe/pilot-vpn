@@ -20,11 +20,10 @@ ZEN="$(dig +short "${REV}.zen.spamhaus.org" A | tr '\n' ' ')"
 if [[ -z "${ZEN// }" ]]; then
   pass "Spamhaus ZEN not listed"
 else
-  # 127.255.255.254 etc can be policy errors
   fail "Spamhaus ZEN response: $ZEN"
 fi
 
-EXTRA="$(ss -tuln | awk 'NR>1 && $5 !~ /127\./ && $5 !~ /::1/ && $5 !~ /:22$/ {print}')"
+EXTRA="$(ss -tuln | awk 'NR>1 && $5 !~ /127\./ && $5 !~ /::1/ && $5 !~ /10\.66\.0\./ && $5 !~ /fd66:/ && $5 !~ /:22$/ && $5 !~ /:51820$/ {print}')"
 if [[ -z "${EXTRA// }" ]]; then
   pass "no unexpected public listeners"
 else

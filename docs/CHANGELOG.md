@@ -2,6 +2,25 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-13 — Stage 6 complete
+
+### What
+
+- WireGuard `wg0` (10.66.0.0/24 + fd66:66:66::/64), MTU 1280, UDP 51820
+- UFW + NAT + ip_forward; Unbound ACL for VPN subnet
+- First peer `macbook` (conf + QR); `wg-add-peer` / `wg-revoke-peer`
+- Client docs: kill-switch, split-tunnel, leak checks
+
+### Verify
+
+- `wg show`; `dig @10.66.0.1 example.com`
+- `/opt/vpn-project/tests/vpn.sh` and `./tests/all.sh`
+- Import macbook.conf on Mac and confirm exit IP
+
+### Rollback
+
+See `docs/WIREGUARD.md`.
+
 ## 2026-07-13 — Worktree restore + roadmap refresh
 
 ### What
