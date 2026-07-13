@@ -20,19 +20,6 @@
 
 ### Stage 7 — Management CLI (`vpnctl`)
 
-Deliverable: one server + one client that is usable day-to-day.
-
-- `wg0`, subnet, UFW `51820/udp`
-- IPv4 + IPv6 policy
-- DNS via Unbound (VPN ACL)
-- MTU tuning
-- Client: full-tunnel + documented split-tunnel option
-- Kill-switch guidance (macOS/iOS/Android)
-- QR + `.conf` for first peer
-- Gate: `./tests/all.sh` including vpn/dns-leak/mtu/routing
-
-### Stage 7 — Management CLI (`vpnctl`)
-
 Before any API:
 
 ```text
