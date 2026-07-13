@@ -51,6 +51,17 @@ Use `AllowedIPs = 10.66.0.0/24, fd66:66:66::/64` (and any other nets you need) i
 ### MTU
 If sites hang but ping works, try client MTU `1280` (default here) or `1380`. Large ping test: `ping -s 1200 -M do 10.66.0.1`.
 
+## Firewall note
+
+UFW must allow **INPUT on `wg0`** so clients can reach Unbound (`10.66.0.1:53`) and other on-tunnel services:
+
+```bash
+ufw allow in on wg0
+ufw allow out on wg0
+```
+
+Without this, handshake works but DNS/internet appears “dead”.
+
 ## Verify on server
 
 ```bash

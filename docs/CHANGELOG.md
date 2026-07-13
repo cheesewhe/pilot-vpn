@@ -2,6 +2,20 @@
 
 All notable stage completions and host changes.
 
+## 2026-07-13 — Fix: UFW blocked VPN client DNS/INPUT
+
+### What
+
+- Allowed INPUT/OUTPUT on `wg0` so clients can reach Unbound and forwarded traffic works under UFW
+
+### Why
+
+Handshake succeeded but full-tunnel internet failed: DNS to `10.66.0.1` hit UFW default deny on INPUT.
+
+### Verify
+
+- Connect Mac tunnel; `curl -4 ifconfig.me` → `173.249.39.129`
+
 ## 2026-07-13 — Stages 6.5 / 7 / 7.5
 
 ### What
